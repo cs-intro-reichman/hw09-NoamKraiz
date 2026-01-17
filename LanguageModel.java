@@ -93,7 +93,8 @@ public class LanguageModel {
         if (initialText.length() < windowLength) return initialText;
         String window = initialText.substring(initialText.length() - windowLength);
         String generatedText = initialText;
-        while (generatedText.length() < textLength) {
+        int limit = initialText.length() + textLength;
+        while (generatedText.length() < limit) {
             List probs = CharDataMap.get(window);
             if (probs == null) break;
             char nextChar = getRandomChar(probs);
@@ -101,7 +102,7 @@ public class LanguageModel {
             window = generatedText.substring(generatedText.length() - windowLength);
         }
         return generatedText;
-	}
+    }
 
     /** Returns a string representing the map of this language model. */
 	public String toString() {
